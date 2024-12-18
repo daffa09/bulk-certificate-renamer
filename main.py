@@ -7,7 +7,7 @@ if os.path.exists(directory):
 else:
     print(f"Directory {directory} tidak ditemukan.")
 
-csv_file = 'ide_inovasi.csv'
+csv_file = 'data_csv/example.csv'
 if os.path.exists(csv_file):
     print(f"File {csv_file} ada.")
 else:
@@ -19,16 +19,25 @@ with open(csv_file, 'r') as file:
     for row in reader:
         new_names.append(row[0].strip())
 
-png_files = sorted([f for f in os.listdir(directory) if f.endswith('.png')], key=lambda x: int(os.path.splitext(x)[0]))
+# Get a sorted list of .png, .jpg, and .jpeg files
+file_list = os.listdir(directory)
+image_files = sorted(
+    [f for f in file_list if f.endswith('.png') or f.endswith('.jpg') or f.endswith('.jpeg')],
+    key=lambda x:
+        int(os.path.splitext(x)[0]) if x.split('.')[0].isdigit() else float('inf')
+)
 
-if len(new_names) != len(png_files):
+print(len(new_names))
+print(len(image_files))
+
+if len(new_names) != len(image_files):
     print("Jumlah nama dalam CSV tidak sama dengan jumlah file PNG!")
     exit()
 
-for i in range(len(png_files)):
-    old_name = os.path.join(directory, png_files[i])
+for i in range(len(image_files)):
+    old_name = os.path.join(directory, image_files[i])
     new_name = os.path.join(directory, new_names[i] + '.png')
     os.rename(old_name, new_name)
-    print(f"File {png_files[i]} direname menjadi {new_names[i]}.png")
+    print(f"File {image_files[i]} direname menjadi {new_names[i]}.png")
 
 print("Proses renaming selesai.")

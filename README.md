@@ -4,7 +4,7 @@ this is a simple scirpt that i made for rename all certificate after using bulk 
 
 ## How to use
 
-1. download/export all design from canva as png
+1. download/export all design from canva as png/jpg/jpeg
 2. put all image into folder images
 3. make sure file amount in images folder is the same as the csv file
 4. run the script
